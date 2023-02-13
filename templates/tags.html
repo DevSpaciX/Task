@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+{% include "includes/sidebar.html" %}
+  <div class="col-md-9">
+    <h1 style="text-align: left">Tags <a style="float: right;margin: 10px" href="{% url "task:tags-create" %}" class="btn btn-primary" role="button" aria-pressed="true">Add tag</a></h1>
+
+  <table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Update</th>
+    <th>Delete</th>
+  </tr>
+  <tr>
+    {% for tag in tags %}
+    <th>{{ tag.title }}</th>
+    <th><a class="btn btn-primary" href="{% url "task:tags-update" pk=tag.pk %}" role="button">Update</a></th>
+    <th><a class="btn btn-danger" href="{% url "task:tags-delete" pk=tag.pk %}" role="button">Delete</a></th>
+  </tr>
+    {% endfor %}
+</table>
+    {% for tag in tags %}
+
+    {% endfor %}
+      <hr>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="row">
+    {% include "includes/sidebar.html" %}
+    <div class="col-md-9">
+      <a style="float: right;margin: 10px" href="{% url "task:create-task" %}" class="btn btn-primary" role="button"
+         aria-pressed="true">Add task</a>
+      <h1 style="text-align: left">Todo list</h1>
+      {% for task in tasks %}
+        <h3 style="font-weight: bold"> {{ task.title }}</h3>
+        <form action="{% url "task_app:update-status" task_id=task.pk %}" method="post">
+          {% csrf_token %}
+          {% if task.is_done %}
+            <h3 style="color: green;">Done
+              <button class="btn btn-secondary" style="float: right;margin: 10px" type="submit">Undo</button>
+            </h3>
+          {% else %}
+            <h3 style="color: red">Not Done
+              <button style="float: right;margin: 10px" class="btn btn-success" type="submit">Complete</button>
+            </h3>
+            </form>
+          {% endif %}
+        Created at : {{ task.created_at }}
+        <br>
+
+        Tags :
+        {% if task.tags.all %}
+          {% for tag in task.tags.all %}
+            {{ tag }}
+          {% endfor %}
+        {% else %}
+          No tags for this task
+        {% endif %}
+        <br>
+        <a href="{% url "task:update-task" pk=task.pk %}" class="btn btn-warning" role="button" aria-pressed="true">Update</a>
+        <a href="{% url "task:delete-task" pk=task.pk %}" class="btn btn-danger" role="button" aria-pressed="true">Delete</a>
+        <hr>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
