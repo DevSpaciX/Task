@@ -8,19 +8,22 @@ from task_app.models import Task, Tag
 
 
 def home(request):
-    return render(request,"home.html")
+    return render(request, "home.html")
+
 
 class TaskPage(generic.ListView):
     template_name = "home.html"
-    queryset = Task.objects.order_by("is_done","created_at")
+    queryset = Task.objects.order_by("is_done", "created_at")
     context_object_name = "tasks"
+
 
 class CreateTaskView(generic.CreateView):
     form_class = CreateTaskForm
     template_name = "task_form.html"
     success_url = reverse_lazy("task:home-page")
 
-def status(request,task_id):
+
+def status(request, task_id):
     task = Task.objects.get(pk=task_id)
 
     if request.method == "POST" and task.is_done is True:
@@ -31,6 +34,7 @@ def status(request,task_id):
         task.save()
 
     return HttpResponseRedirect(reverse("task:home-page"))
+
 
 class TagsPage(generic.ListView):
     template_name = "tags.html"
@@ -44,10 +48,12 @@ class UpdateTags(generic.UpdateView):
     model = Tag
     success_url = reverse_lazy("task:tags")
 
+
 class DeleteTags(generic.DeleteView):
     template_name = "delete_tags.html"
     model = Tag
     success_url = reverse_lazy("task:tags")
+
 
 class CreateTag(generic.CreateView):
     fields = "__all__"
@@ -55,11 +61,13 @@ class CreateTag(generic.CreateView):
     template_name = "task_form.html"
     success_url = reverse_lazy("task:tags")
 
+
 class UpdateTask(generic.UpdateView):
     form_class = CreateTaskForm
     template_name = "update_tags.html"
     model = Task
     success_url = reverse_lazy("task:home-page")
+
 
 class DeleteTask(generic.DeleteView):
     fields = "__all__"

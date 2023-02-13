@@ -4,13 +4,10 @@ from task_app.models import Task, Tag
 
 
 class CreateTaskForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(),
-                                          required=False,
-                                          widget=forms.CheckboxSelectMultiple)
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(), required=False, widget=forms.CheckboxSelectMultiple
+    )
+
     class Meta:
         model = Task
-        fields = ["title","tags"]
-
-
-
-
+        fields = ["title", "tags"]

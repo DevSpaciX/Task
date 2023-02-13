@@ -12,9 +12,7 @@ def reverse_load_fixtures(state, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('task_app', '0002_alter_task_is_done'),
+        ("task_app", "0002_alter_task_is_done"),
     ]
 
-    operations = [
-        migrations.RunPython(load_fixtures, reverse_load_fixtures)
-    ]
+    operations = [migrations.RunPython(load_fixtures, reverse_load_fixtures)]

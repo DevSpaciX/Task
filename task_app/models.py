@@ -10,7 +10,7 @@ class Tag(models.Model):
 
 class Task(models.Model):
     title = models.CharField(max_length=100)
-    is_done = models.BooleanField(default=False)
+    is_done = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag)
 
