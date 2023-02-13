@@ -23,17 +23,12 @@ class CreateTaskView(generic.CreateView):
     success_url = reverse_lazy("task:home-page")
 
 
-def status(request, task_id):
-    task = Task.objects.get(pk=task_id)
-
-    if request.method == "POST" and task.is_done is True:
-        task.is_done = False
+class StatusView(generic.View):
+    def post(self, request, task_id):
+        task = Task.objects.get(pk=self.kwargs.get("task_id"))
+        task.is_done = not task.is_done
         task.save()
-    else:
-        task.is_done = True
-        task.save()
-
-    return HttpResponseRedirect(reverse("task:home-page"))
+        return HttpResponseRedirect(reverse("task:home-page"))
 
 
 class TagsPage(generic.ListView):
